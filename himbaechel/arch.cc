@@ -17,6 +17,7 @@
  *
  */
 
+#include <boost/filesystem/convenience.hpp>
 #include "arch.h"
 #include "archdefs.h"
 #include "chipdb.h"
@@ -61,15 +62,9 @@ void Arch::load_chipdb(const std::string &path)
     if (!args.chipdb_override.empty()) {
         db_path = args.chipdb_override;
     } else {
-        std::string separator;
-#if defined(_WIN32)
-        separator = "\\";
-#else
-        separator = "/";
-#endif
         db_path = proc_share_dirname();
         db_path += "himbaechel";
-        db_path += separator;
+        db_path += boost::filesystem::path::preferred_separator;
         db_path += path;
     }
     try {

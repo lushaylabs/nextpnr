@@ -9,6 +9,7 @@
 #define HIMBAECHEL_CONSTIDS "uarch/gowin/constids.inc"
 #include "himbaechel_constids.h"
 
+#include <boost/filesystem/convenience.hpp>
 #include "cst.h"
 #include "globals.h"
 #include "gowin.h"
@@ -128,15 +129,9 @@ void GowinImpl::init_database(Arch *arch)
         }
     }
 
-    char separator;
-#if defined(_WIN32)
-    separator = '\\';
-#else
-    separator = '/';
-#endif
     arch->load_chipdb(stringf(
         "gowin%cchipdb-%s.bin",
-        separator,
+        boost::filesystem::path::preferred_separator,
         family.c_str()
     ));
 
